@@ -1,26 +1,69 @@
+import { useState } from "react";
 import JobCard from "../components/JobCard";
 
 function Home() {
-    // This component represents the home page
+
+    // State stored in the parent component
+    // It stores the IDs of jobs that the freelancer has applied to
+    const [appliedJobs, setAppliedJobs] = useState([]);
+
+
+    // This function is passed to JobCard through props
+    function handleApply(jobId) {
+
+        // Check whether the freelancer has already applied
+        // If already applied, remove the application
+        if (appliedJobs.includes(jobId)) {
+
+            setAppliedJobs(previousJobs =>
+                previousJobs.filter(id => id !== jobId)
+            );
+        }
+        else {// If not applied, add the application
+
+            setAppliedJobs(previousJobs => [...previousJobs, jobId]);
+
+        }
+    }
+
+
     return (
         <main>
+
             <h1>Find Freelance Work</h1>
+
             <p>
-                Discover projects posted by starttups and clients.
+                Discover projects posted by startups and clients.
             </p>
+
+
+            {/* Application count comes from state */}
+            <h2>
+                Applications Sent: {appliedJobs.length}
+            </h2>
+
+
             <h2>Available Work</h2>
 
-  {/* Job 1 */}
+
+            {/* Job 1 */}
             <JobCard
                 title="E-Commerce Website"
-                comapany="Tech startup"
+                company="Tech Startup"
                 budget="₹50,000"
-                skills="React , Node.js"
+                skills="React, Node.js"
                 description="Build an online shopping website for a startup."
                 deadline="30 Days"
+
+                // Passing state information to child
+                isApplied={appliedJobs.includes(1)}
+
+                // Passing function to child
+                onApply={() => handleApply(1)}
             />
 
-{/* Job 2 */}
+
+            {/* Job 2 */}
             <JobCard
                 title="Portfolio Website"
                 company="Design Studio"
@@ -28,24 +71,26 @@ function Home() {
                 skills="React, CSS"
                 description="Create a professional portfolio website."
                 deadline="15 Days"
-            />
-{/* Job 3 */}
 
+                isApplied={appliedJobs.includes(2)}
+                onApply={() => handleApply(2)}
+            />
+
+
+            {/* Job 3 */}
             <JobCard
                 title="Mobile App UI"
-                comapny="Startup Hub"
+                company="Startup Hub"
                 budget="₹30,000"
-                skills="Figma, UX/UI"
+                skills="Flutter, UI/UX"
                 description="Design a modern mobile application interface."
                 deadline="20 Days"
+
+                isApplied={appliedJobs.includes(3)}
+                onApply={() => handleApply(3)}
             />
 
-
-
-
-
         </main>
-
     );
 }
 
