@@ -38,9 +38,18 @@ function Home() {
 
 
             {/* Application count comes from state */}
-            <h2>
-                Applications Sent: {appliedJobs.length}
-            </h2>
+            {/* Conditional rendering using if/else logic */}
+            {appliedJobs.length === 0 ? (
+                <p>
+                    You haven't applied to any jobs yet.
+                    Explore the available work below!!
+                </p>) :
+                (
+                    <p>
+                        You have applied to {appliedJobs.length} job(S).
+                    </p>
+                )}
+
 
 
             <h2>Available Work</h2>

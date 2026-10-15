@@ -8,6 +8,16 @@ function JobCard(props) {
     // State 2: Controls whether job details are visible
     const [showDetails, setShowDetails] = useState(false);
 
+    //Event Handler : runs when save job is clicked
+    function handleSaveJob() {
+        setIsSaved(previousValue => !previousValue);
+    }
+
+    //Event Handler:  runs when View Details is clicked 
+    function handleToggleDetails() {
+        setShowDetails(previousValue => !previousValue);
+    }
+
     return (
         <div className="job-card">
 
@@ -21,17 +31,17 @@ function JobCard(props) {
             <p>Skills: {props.skills}</p>
 
 
-            {/* Save / Unsave Job */}
+            {/*Event 1: Save / Unsave Job */}
             <button
-                onClick={() => setIsSaved(previousValue => !previousValue)}
+                onClick={handleSaveJob}
             >
                 {isSaved ? "♥ Saved" : "♡ Save Job"}
             </button>
 
 
-            {/* Show / Hide Details */}
+            {/* Event 2: Show / Hide Details */}
             <button
-                onClick={() => setShowDetails(previousValue => !previousValue)}
+                onClick={handleToggleDetails}
             >
                 {showDetails ? "Hide Details" : "View Details"}
             </button>
